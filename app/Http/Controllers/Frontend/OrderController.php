@@ -44,6 +44,8 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+
+
          $request->validate([
           'fname'   => 'required|max:255',
           'lname'   => 'required|max:255',
@@ -52,68 +54,69 @@ class OrderController extends Controller
        [
           'fname.required' => 'Please Insert Your Name',
           'lname.required' => 'Please Insert Your last name',
-          'address.required' => 'Please Insert Your Shipping Address',
+          'shipping_address.required' => 'Please Insert Your Shipping Address',
        ] );
 
          $order = new Order();
        if (Auth::check()) {
-           $cart1 = Cart::where('user_id', Auth::id())->where('product_id', $request->product_id)->first();
-           dd($cart1);
+           $cart = Cart::where('user_id', Auth::id())->where('product_id', $request->product_id)->first();
+          
         }
         else{
-            $cart2 = Cart::where('ip_address', request()->ip())->where('product_id', $request->product_id)->first();
+            $cart = Cart::where('ip_address', request()->ip())->where('product_id', $request->product_id)->first();
+
 
         }
 
 
-        // if (Auth::check()) {
-        //    $order->user_id = Auth::id();
-        // }
-        // else{
-        //     $order->ip_address = $request->ip();
-        // }
+        if (Auth::check()) {
+           $order->user_id = Auth::id();
+        }
+        else{
+            $order->ip_address = $request->ip();
+        }
 
-        //     $order->first_name         = $request->fname;
-        //     $order->last_name          = $request->lname;
-        //     $order->email              = $request->email;
-        //     $order->phone              = $request->phone;
-        //     $order->shipping_address   = $request->shipping_address;
+            $order->first_name         = $request->fname;
+            $order->last_name          = $request->lname;
+            $order->email              = $request->email;
+            $order->phone              = $request->phone;
+            $order->shipping_address   = $request->shipping_address;
             
-        //     $order->additional_message = $request->additional_message;
-        //     $order->product_finalprice = $request->product_finalprice;
-        //     $order->payment_id         = $request->exampleRadios;
-          
+            $order->additional_message = $request->additional_message;
+            $order->product_finalprice = $request->product_finalprice;
+            $order->payment_id         = $request->exampleRadios;
+                      
 
 
-        //     if ($order->payment_id == 1) {
-        //         $order->transaction_id     = $request->btransction_id;
-        //     }
+            if ($order->payment_id == 1) {
+                $order->transaction_id     = $request->btransction_id;
+            }
            
-        //     else if ($order->payment_id == 2) {
-        //         $order->transaction_id     = $request->ntransction_id;
-        //     }
+            else if ($order->payment_id == 2) {
+                $order->transaction_id     = $request->ntransction_id;
+            }
 
-        //     $order->save();
+            $order->save();
 
 
-        //     foreach ( Cart::totalCarts() as $cart ) {
+            foreach ( Cart::totalCarts() as $cart ) {
 
-        //         $cart->order_id = $order->id;
+                $cart->order_id = $order->id;
 
-        //         if (Auth::check() ) {
-        //            $cart->user_id = Auth::id();
-        //         }
-        //         else{
-        //             $cart->ip_address = $request->ip();
-        //         }
+                if (Auth::check() ) {
+                   $cart->user_id = Auth::id();
+                }
+                else{
+                    $cart->ip_address = $request->ip();
+                }
 
-        //         $cart->save();
+                $cart->save();
 
                 
-        //     }
+            }
            
         
-        // return redirect()->route('homepage');
+        return redirect()->route('homepage');
 
 
 

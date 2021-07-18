@@ -7,7 +7,7 @@ use App\Models\Frontend\Cart;
 use App\Models\Backend\Category;
 use App\Models\Backend\Brand;
 use App\Models\Backend\Product;
-use App\Models\Backend\Order;
+use App\Models\Frontend\Order;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
