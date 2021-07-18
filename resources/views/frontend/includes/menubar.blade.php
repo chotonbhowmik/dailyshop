@@ -20,29 +20,26 @@
                @foreach(App\Models\Backend\Category::orderBy('category_name', 'asc')->where('is_parent', 0)->get() as $parentCategory)
               <li>
                
-                <a href="#">{{$parentCategory->category_name}} <span class="caret"></span>
+                <a href="">{{$parentCategory->category_name}} <span class="caret"></span>
                 </a>
-                  @foreach(App\Models\Backend\Category::orderBy('category_name', 'asc')->where('is_parent', $parentCategory->id )->get() as $childCategory)
-
-
-
-                <ul class="dropdown-menu">                
-                  <li><a href="#">{{$childCategory->category_name}}</a></li>
                 
+
+
+
+                <ul class="dropdown-menu"> 
+                  @foreach(App\Models\Backend\Category::orderBy('category_name', 'asc')->where('is_parent', $parentCategory->id )->get() as $childCategory)               
+                  <li><a href="{{ route('category.show', $childCategory->category_slug)}}">{{$childCategory->category_name}}</a></li>
+                @endforeach
                 </ul>
 
-                @endforeach
+                
               </li>
 
               @endforeach
            
               <li><a href="contact.html">Contact</a></li>
-              <li><a href="#">Pages <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="product.html">Shop Page</a></li>
-                  <li><a href="product-detail.html">Shop Single</a></li>                
-                  <li><a href="404.html">404 Page</a></li>                
-                </ul>
+              <li><a href="{{route('allProducts')}}">Shop <span class="caret"></span></a>
+                
               </li>
             </ul>
           </div><!--/.nav-collapse -->

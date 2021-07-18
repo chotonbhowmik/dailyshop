@@ -35,7 +35,7 @@ class PagesController extends Controller
     public function products()
 
     {   
-        $products = Product::orderBy('id', 'desc')->paginate(6);
+        $products = Product::orderBy('id', 'desc')->paginate(12);
         return view('frontend.pages.products.products', compact('products'));
     }
 
@@ -59,6 +59,28 @@ class PagesController extends Controller
         }
         
     }
+      //category wise product show
+    public function productcategory()
+
+    {
+        return view('frontend.pages.products.products');
+    }
+
+   //single category product details view
+    public function categoryshow($category_slug)
+
+    {
+        $category = Category::where('category_slug',$category_slug)->first();
+        if (!is_null($category)) {
+            return view('frontend.pages.products.category', compact('category'));
+            
+        }
+        else{
+            return redirect()->route('homepage');
+        }
+        
+    }
+
 
     /**
      * Show the form for creating a new resource.

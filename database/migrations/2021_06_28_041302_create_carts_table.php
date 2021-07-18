@@ -17,6 +17,7 @@ class CreateCartsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->nullable();
             $table->string('ip_address')->nullable();
+            $table->integer('order_id')->nullable();
             $table->integer('product_id')->nullable();
             $table->integer('product_quantity')->nullable();
             $table->string('product_color')->nullable();

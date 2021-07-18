@@ -17,8 +17,8 @@ Route::get('/', 'App\Http\Controllers\Frontend\PagesController@index')->name('ho
 Route::group(['prefix' => 'products'], function(){
  Route::get('/', 'App\Http\Controllers\Frontend\PagesController@products')->name('allProducts');
  Route::get('/{slug}', 'App\Http\Controllers\Frontend\PagesController@productshow')->name('product.show');
- // Route::get('/category', 'App\Http\Controllers\Frontend\PagesController@productcategory')->name('product.category');
- // Route::get('/category/{slug}', 'App\Http\Controllers\Frontend\PagesController@categoryshow')->name('category.show');
+ Route::get('/category', 'App\Http\Controllers\Frontend\PagesController@productcategory')->name('product.category');
+ Route::get('/category/{slug}', 'App\Http\Controllers\Frontend\PagesController@categoryshow')->name('category.show');
  });
 
 Route::group(['prefix' => 'cart'], function(){
@@ -30,6 +30,16 @@ Route::group(['prefix' => 'cart'], function(){
 
 
 });
+Route::group(['prefix' => 'checkout'], function(){
+
+ Route::get('/', 'App\Http\Controllers\Frontend\OrderController@index')->name('checkout.page');
+ Route::post('store', 'App\Http\Controllers\Frontend\OrderController@store')->name('order.store');
+ 
+
+
+});
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -177,6 +187,7 @@ Route::group(['prefix' => 'slider'], function(){
 
 	Route::post('/delete/{id}', 'App\Http\Controllers\Backend\SliderController@destroy')->name('slider.destroy');
 });
+
 
 
 });
